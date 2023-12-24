@@ -20,6 +20,6 @@ namespace BlogApp.DAL.Repositories.Interfaces
         Task<T> CreateAsync(T entity);
         Task<T> UpdateAsync(T entity);
         Task<T> DeleteAsync(T entity);
-        Task SaveChangesAsync();
+        Task<int> SaveChangesAsync();
     }
 }

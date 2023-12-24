@@ -1,5 +1,6 @@
 ﻿using BlogApp.Business.DTOs.CategoryDTOs;
 using BlogApp.Business.Services.Intefaces;
+using FluentValidation;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq.Expressions;
@@ -25,10 +26,12 @@ namespace BlogApp.API.Controllers
         {
             return StatusCode(StatusCodes.Status200OK, await _service.ReadAsync());
         }
-        [HttpGet, Route("{Id}")]
+        [HttpGet("{Id}")]
         public async Task<IActionResult> ReadId(int Id)
         {
-            return StatusCode(StatusCodes.Status200OK, await _service.ReadAsync(Id));
+            var result = await _service.ReadAsync(Id);
+
+            return StatusCode(StatusCodes.Status200OK, result);
         }
 
         // <-- Create API Section -->

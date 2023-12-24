@@ -145,3 +145,6 @@ C:\Users\99470\Desktop\BlogApp\BlogApp.API\obj\Debug\net8.0\ref\BlogApp.API.dll
 C:\Users\99470\Desktop\BlogApp\BlogApp.API\bin\Debug\net8.0\libman.json
 C:\Users\99470\Desktop\BlogApp\BlogApp.API\obj\Debug\net8.0\BlogApp.API.sourcelink.json
 C:\Users\99470\Desktop\BlogApp\BlogApp.API\bin\Debug\net8.0\BlogApp.API.staticwebassets.runtime.json
+C:\Users\99470\Desktop\BlogApp\BlogApp.API\bin\Debug\net8.0\FluentValidation.dll
+C:\Users\99470\Desktop\BlogApp\BlogApp.API\bin\Debug\net8.0\FluentValidation.AspNetCore.dll
+C:\Users\99470\Desktop\BlogApp\BlogApp.API\bin\Debug\net8.0\FluentValidation.DependencyInjectionExtensions.dll

@@ -77,9 +77,11 @@ namespace BlogApp.DAL.Repositories.Abstractions
             return entity;
         }
         
-        public async Task SaveChangesAsync()
+        public async Task<int> SaveChangesAsync()
         {
-            await _context.SaveChangesAsync();
+            var result = await _context.SaveChangesAsync();
+
+            return result;
         }
 
     }

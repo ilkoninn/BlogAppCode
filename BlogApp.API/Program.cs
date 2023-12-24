@@ -1,8 +1,10 @@
+using BlogApp.Business.DTOs.CategoryDTOs;
 using BlogApp.Business.Services.Implementations;
 using BlogApp.Business.Services.Intefaces;
 using BlogApp.DAL.Context;
 using BlogApp.DAL.Repositories.Abstractions;
 using BlogApp.DAL.Repositories.Interfaces;
+using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace BlogApp.API
@@ -20,7 +22,13 @@ namespace BlogApp.API
 
             builder.Services.AddAutoMapper(typeof(MapperProfile).Assembly);
 
-            builder.Services.AddControllers();
+            builder.Services.AddControllers().AddFluentValidation(opt => 
+            {
+                opt.RegisterValidatorsFromAssembly(typeof(CreateCategoryDTOValidation).Assembly);
+                opt.RegisterValidatorsFromAssembly(typeof(ReadCategoryDTOValidation).Assembly);
+                opt.RegisterValidatorsFromAssembly(typeof(UpdateCategoryDTOValidation).Assembly);
+                opt.RegisterValidatorsFromAssembly(typeof(DeleteCategoryDTOValidation).Assembly);
+            });
 
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
