@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace BlogApp.DAL.Repositories.Abstractions
 {
-    public class Repository<T> : IRepository<T> where T : BaseEntity, new()
+    public class Repository<T> : IRepository<T> where T : BaseAuditableEntity, new()
     {
         private readonly AppDbContext _context;
         private readonly DbSet<T> _dbSet;
@@ -47,12 +47,12 @@ namespace BlogApp.DAL.Repositories.Abstractions
                 }
             }
 
-            return query;
+            return query.Where(x => !x.IsDeleted);
         }
 
         public async Task<T> ReadAsync(int Id)
         {
-            return await _dbSet.AsNoTracking().FirstOrDefaultAsync(x => x.Id == Id);
+            return await _dbSet.AsNoTracking().FirstOrDefaultAsync(x => x.Id == Id && !x.IsDeleted);
         }
 
         public async Task<T> CreateAsync(T entity)
@@ -70,7 +70,9 @@ namespace BlogApp.DAL.Repositories.Abstractions
 
         public async Task<T> DeleteAsync(T entity)
         {
-            _dbSet.Remove(entity);
+            entity.IsDeleted = true;
+
+            _dbSet.Update(entity);
 
             return entity;
         }

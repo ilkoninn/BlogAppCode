@@ -143,3 +143,5 @@ C:\Users\99470\Desktop\BlogApp\BlogApp.API\obj\Debug\net8.0\BlogApp.API.pdb
 C:\Users\99470\Desktop\BlogApp\BlogApp.API\obj\Debug\net8.0\BlogApp.API.genruntimeconfig.cache
 C:\Users\99470\Desktop\BlogApp\BlogApp.API\obj\Debug\net8.0\ref\BlogApp.API.dll
 C:\Users\99470\Desktop\BlogApp\BlogApp.API\bin\Debug\net8.0\libman.json
+C:\Users\99470\Desktop\BlogApp\BlogApp.API\obj\Debug\net8.0\BlogApp.API.sourcelink.json
+C:\Users\99470\Desktop\BlogApp\BlogApp.API\bin\Debug\net8.0\BlogApp.API.staticwebassets.runtime.json

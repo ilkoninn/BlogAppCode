@@ -15,3 +15,4 @@ C:\Users\99470\Desktop\BlogApp\BlogApp.DAL\obj\Debug\net8.0\refint\BlogApp.DAL.d
 C:\Users\99470\Desktop\BlogApp\BlogApp.DAL\obj\Debug\net8.0\BlogApp.DAL.pdb
 C:\Users\99470\Desktop\BlogApp\BlogApp.DAL\obj\Debug\net8.0\BlogApp.DAL.genruntimeconfig.cache
 C:\Users\99470\Desktop\BlogApp\BlogApp.DAL\obj\Debug\net8.0\ref\BlogApp.DAL.dll
+C:\Users\99470\Desktop\BlogApp\BlogApp.DAL\obj\Debug\net8.0\BlogApp.DAL.sourcelink.json

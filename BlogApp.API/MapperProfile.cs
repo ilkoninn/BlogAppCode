@@ -7,12 +7,13 @@ namespace BlogApp.API
 {
     public class MapperProfile : Profile
     {
-        protected MapperProfile()
+        public MapperProfile()
         {
             CreateMap<Category, CreateCategoryDTO>().ReverseMap();
             CreateMap<Category, CreateCategoryDTO>();
-            CreateMap<Category, UpdateCategoryDTO>().ReverseMap();
+            CreateMap<UpdateCategoryDTO, Category>().ReverseMap();
             CreateMap<Category, UpdateCategoryDTO>();
         }
+
     }
 }

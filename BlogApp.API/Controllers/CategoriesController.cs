@@ -11,34 +11,31 @@ namespace BlogApp.API.Controllers
     public class CategoriesController : ControllerBase
     {
         private readonly ICategoryService _service;
+        private readonly IWebHostEnvironment _environment;
 
-        public CategoriesController(ICategoryService service)
+        public CategoriesController(ICategoryService service, IWebHostEnvironment environment)
         {
             _service = service;
+            _environment = environment;
         }
 
         // <-- Read API Section -->
         [HttpGet]
         public async Task<IActionResult> Read()
         {
-            ReadCategoryDTO readAll = await _service.ReadAsync();
-
-            return StatusCode(StatusCodes.Status200OK, readAll.Categories);
+            return StatusCode(StatusCodes.Status200OK, await _service.ReadAsync());
         }
-        [HttpGet]
-        [Route("{Id}")]
+        [HttpGet, Route("{Id}")]
         public async Task<IActionResult> ReadId(int Id)
         {
-            ReadCategoryDTO readOne = await _service.ReadAsync(Id);
-
-            return StatusCode(StatusCodes.Status200OK, readOne.Category);
+            return StatusCode(StatusCodes.Status200OK, await _service.ReadAsync(Id));
         }
 
         // <-- Create API Section -->
         [HttpPost]
         public async Task<IActionResult> Create([FromForm] CreateCategoryDTO create)
         {
-            var result = await _service.CreateAsync(create);
+            var result = await _service.CreateAsync(create, _environment.WebRootPath);
 
             return StatusCode(StatusCodes.Status200OK, result);
         }
@@ -47,7 +44,7 @@ namespace BlogApp.API.Controllers
         [HttpPut]
         public async Task<IActionResult> Update([FromForm] UpdateCategoryDTO update)
         {
-            var result = await _service.UpdateAsync(update);
+            var result = await _service.UpdateAsync(update, _environment.WebRootPath);
 
             return StatusCode(StatusCodes.Status200OK, result);
         }
@@ -56,7 +53,7 @@ namespace BlogApp.API.Controllers
         [HttpDelete]
         public async Task<IActionResult> Delete([FromForm] DeleteCategoryDTO delete)
         {
-            var result = _service.DeleteAsync(delete);
+            var result = await _service.DeleteAsync(delete);
 
             return StatusCode(StatusCodes.Status200OK, result);
         }

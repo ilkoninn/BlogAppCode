@@ -1,10 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "2CUogL6fyErsPsp6RyrOCSfrdAK7p8viJtmicwvg9nz3gZJ6UjceAn4DBKbtjQ8MHivO3/jYI/D4azRNvDHoJw==",
+  "dgSpecHash": "p6o7b6GTaMgjdWLhy/S0idURs3G77s2FITSAZccpsK8rqU+6zs9tKDa1Q7qRqXiEgxdRnauzbWbYaAuIkrv2bg==",
   "success": true,
   "projectFilePath": "C:\\Users\\99470\\Desktop\\BlogApp\\BlogApp.Business\\BlogApp.Business.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\99470\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
+    "C:\\Users\\99470\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.1\\automapper.extensions.microsoft.dependencyinjection.12.0.1.nupkg.sha512",
     "C:\\Users\\99470\\.nuget\\packages\\azure.core\\1.25.0\\azure.core.1.25.0.nupkg.sha512",
     "C:\\Users\\99470\\.nuget\\packages\\azure.identity\\1.7.0\\azure.identity.1.7.0.nupkg.sha512",
     "C:\\Users\\99470\\.nuget\\packages\\microsoft.aspnetcore.http.features\\5.0.17\\microsoft.aspnetcore.http.features.5.0.17.nupkg.sha512",

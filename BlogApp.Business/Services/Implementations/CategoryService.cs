@@ -3,6 +3,7 @@ using BlogApp.Business.DTOs.CategoryDTOs;
 using BlogApp.Business.Services.Intefaces;
 using BlogApp.Core.Entities;
 using BlogApp.DAL.Repositories.Interfaces;
+using DianaWebApp.Helper;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using System;
@@ -25,53 +26,51 @@ namespace BlogApp.Business.Services.Implementations
             _mapper = mapper;
         }
 
-        public async Task<Category> CreateAsync(CreateCategoryDTO entity)
+        public async Task<Category> CreateAsync(CreateCategoryDTO entity, string env)
         {
-            Category newCategory = _mapper.Map<Category>(entity);
-
-            _rep.CreateAsync(newCategory);
-            _rep.SaveChangesAsync();
-
-            return newCategory;
-        }
-
-        public async Task<ReadCategoryDTO> ReadAsync(Expression<Func<Category, bool>>? expression = null, Expression<Func<Category, object>>? expressionOrder = null, bool isDescending = false, params string[] includes)
-        {
-            ReadCategoryDTO read = new()
+            Category newCategory = new() 
             {
-                Categories = _rep.ReadAsync()
+                Name = entity.Name,
+                ImgUrl = entity.File.Upload(env, @"\Upload\CategoryImages\")
             };
 
-            return read;
+            var result = await _rep.CreateAsync(newCategory);
+            await _rep.SaveChangesAsync();
+
+            return result;
         }
 
-        public async Task<ReadCategoryDTO> ReadAsync(int Id)
+        public async Task<IQueryable<Category>> ReadAsync(Expression<Func<Category, bool>>? expression = null, Expression<Func<Category, object>>? expressionOrder = null, bool isDescending = false, params string[] includes)
         {
-            ReadCategoryDTO readOne = new()
-            {
-                Category = await _rep.ReadAsync(Id),
-            };
-
-            return readOne;
+            return await _rep.ReadAsync();
         }
 
-        public async Task<Category> UpdateAsync(UpdateCategoryDTO entity)
+        public async Task<Category> ReadAsync(int Id)
         {
+            return await _rep.ReadAsync(Id);
+        }
+
+        public async Task<Category> UpdateAsync(UpdateCategoryDTO entity, string env)
+        {
+
             Category oldCategory = await _rep.ReadAsync(entity.Id);
-            _mapper.Map(entity, oldCategory);
 
-            _rep.UpdateAsync(oldCategory);
-            _rep.SaveChangesAsync();
+            FileManager.Delete(oldCategory.ImgUrl, env, @"\Upload\CategoryImages\");
+            oldCategory.ImgUrl = entity.File.Upload(env, @"\Upload\CategoryImages\");
+            oldCategory.Name = entity.Name;
+            
+            var result = await _rep.UpdateAsync(oldCategory);
+            await _rep.SaveChangesAsync();
 
-            return oldCategory;
+            return result;
         }
 
         public async Task<Category> DeleteAsync(DeleteCategoryDTO entity)
         {
             Category oldCategory = await _rep.ReadAsync(entity.Id);
-
-            _rep.DeleteAsync(oldCategory);
-            _rep.SaveChangesAsync();
+            
+            await _rep.DeleteAsync(oldCategory);
+            await _rep.SaveChangesAsync();
 
             return oldCategory;
         }

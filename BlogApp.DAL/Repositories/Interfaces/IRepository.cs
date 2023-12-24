@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BlogApp.DAL.Repositories.Interfaces
 {
-    public interface IRepository<T> where T : BaseEntity, new()
+    public interface IRepository<T> where T : BaseAuditableEntity
     {
         Task<IQueryable<T>> ReadAsync(
             Expression<Func<T, bool>>? expression = null,
