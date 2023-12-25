@@ -16,7 +16,6 @@ namespace BlogApp.Business.DTOs.CategoryDTOs
     public record CreateCategoryDTO
     {
         public string? Name { get; set; }
-        public IFormFile? File { get; set; }
     }
     public class CreateCategoryDTOValidation : AbstractValidator<CreateCategoryDTO>
     {
@@ -28,9 +27,6 @@ namespace BlogApp.Business.DTOs.CategoryDTOs
                 .MaximumLength(50)
                 .WithMessage("Its length must be lower than 50!");
 
-            RuleFor(c => c.File)
-                .Must(file => file != null && file.Length > 0)
-                .WithMessage("The file must not be empty.");
         }
     }
 

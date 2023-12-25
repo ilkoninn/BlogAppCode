@@ -27,7 +27,6 @@ namespace BlogApp.API
                 opt.RegisterValidatorsFromAssembly(typeof(CreateCategoryDTOValidation).Assembly);
                 opt.RegisterValidatorsFromAssembly(typeof(ReadCategoryDTOValidation).Assembly);
                 opt.RegisterValidatorsFromAssembly(typeof(UpdateCategoryDTOValidation).Assembly);
-                opt.RegisterValidatorsFromAssembly(typeof(DeleteCategoryDTOValidation).Assembly);
             });
 
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

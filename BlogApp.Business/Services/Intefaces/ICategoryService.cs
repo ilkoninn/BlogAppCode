@@ -11,15 +11,15 @@ namespace BlogApp.Business.Services.Intefaces
 {
     public interface ICategoryService
     {
-        Task<IQueryable<Category>> ReadAsync(
+        Task<IQueryable<ReadCategoryDTO>> ReadAsync(
             Expression<Func<Category, bool>>? expression = null,
             Expression<Func<Category, object>>? expressionOrder = null,
             bool isDescending = false,
             params string[] includes
             );
-        Task<Category> ReadAsync(int Id);
+        Task<ReadCategoryDTO> ReadAsync(int Id);
         Task<Category> CreateAsync(CreateCategoryDTO entity, string env);
         Task<Category> UpdateAsync(UpdateCategoryDTO entity, string env);
-        Task<Category> DeleteAsync(DeleteCategoryDTO entity);
+        Task<Category> DeleteAsync(int Id);
     }
 }

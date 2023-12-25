@@ -36,7 +36,6 @@ namespace BlogApp.Business.Services.Implementations
             Category newCategory = new() 
             {
                 Name = entity.Name,
-                ImgUrl = entity.File.Upload(env, @"\Upload\CategoryImages\"),
                 UpdatedDate = DateTime.Now,
                 CreatedDate = DateTime.Now
             };
@@ -47,14 +46,14 @@ namespace BlogApp.Business.Services.Implementations
             return result;
         }
 
-        public async Task<IQueryable<Category>> ReadAsync(Expression<Func<Category, bool>>? expression = null, Expression<Func<Category, object>>? expressionOrder = null, bool isDescending = false, params string[] includes)
+        public async Task<IQueryable<ReadCategoryDTO>> ReadAsync(Expression<Func<Category, bool>>? expression = null, Expression<Func<Category, object>>? expressionOrder = null, bool isDescending = false, params string[] includes)
         {
             var result = await _rep.ReadAsync();
 
-            return result;
+            return _mapper.Map<IQueryable<ReadCategoryDTO>>(result);
         }
 
-        public async Task<Category> ReadAsync(int Id)
+        public async Task<ReadCategoryDTO> ReadAsync(int Id)
         {
             if (Id <= 0 || Id == null) throw new NegativeIdException();
 
@@ -63,7 +62,7 @@ namespace BlogApp.Business.Services.Implementations
             if (result is null) throw new CategoryNotFoundException();
 
 
-            return result;
+            return _mapper.Map<ReadCategoryDTO>(result);
         }
 
         public async Task<Category> UpdateAsync(UpdateCategoryDTO entity, string env)
@@ -74,8 +73,6 @@ namespace BlogApp.Business.Services.Implementations
 
             if(oldCategory is null) throw new CategoryNotFoundException();
 
-            FileManager.Delete(oldCategory.ImgUrl, env, @"\Upload\CategoryImages\");
-            oldCategory.ImgUrl = entity.File.Upload(env, @"\Upload\CategoryImages\");
             oldCategory.Name = entity.Name;
             oldCategory.UpdatedDate = DateTime.Now;
             oldCategory.CreatedDate = oldCategory.CreatedDate;
@@ -86,11 +83,11 @@ namespace BlogApp.Business.Services.Implementations
             return result;
         }
 
-        public async Task<Category> DeleteAsync(DeleteCategoryDTO entity)
+        public async Task<Category> DeleteAsync(int Id)
         {
-            if (entity.Id <= 0 || entity.Id == null) throw new NegativeIdException();
+            if (Id <= 0 || Id == null) throw new NegativeIdException();
 
-            Category oldCategory = await _rep.ReadAsync(entity.Id);
+            Category oldCategory = await _rep.ReadAsync(Id);
 
             if (oldCategory is null) throw new CategoryNotFoundException();
 

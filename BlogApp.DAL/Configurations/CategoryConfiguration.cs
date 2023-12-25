@@ -16,7 +16,6 @@ namespace BlogApp.DAL.Configurations
         {
             builder.Property(c => c.Id).IsRequired();
             builder.Property(c => c.Name).IsRequired().HasMaxLength(50);
-            builder.Property(c => c.ImgUrl).IsRequired();
         }
     }
 }

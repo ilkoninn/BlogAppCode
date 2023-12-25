@@ -54,9 +54,9 @@ namespace BlogApp.API.Controllers
 
         // <-- Delete API Section -->
         [HttpDelete]
-        public async Task<IActionResult> Delete([FromForm] DeleteCategoryDTO delete)
+        public async Task<IActionResult> Delete([FromForm] int Id)
         {
-            var result = await _service.DeleteAsync(delete);
+            var result = await _service.DeleteAsync(Id);
 
             return StatusCode(StatusCodes.Status200OK, result);
         }

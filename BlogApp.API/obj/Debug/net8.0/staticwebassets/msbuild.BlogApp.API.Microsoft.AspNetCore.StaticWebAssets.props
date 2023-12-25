@@ -1,5 +1,21 @@
 ﻿<Project>
   <ItemGroup>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\Upload\CategoryImages\2f31bee1-4fcf-466d-bf1c-5a7fd3117f36product-2.jpg))">
+      <SourceType>Package</SourceType>
+      <SourceId>BlogApp.API</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/BlogApp.API</BasePath>
+      <RelativePath>Upload/CategoryImages/2f31bee1-4fcf-466d-bf1c-5a7fd3117f36product-2.jpg</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\Upload\CategoryImages\2f31bee1-4fcf-466d-bf1c-5a7fd3117f36product-2.jpg))</OriginalItemSpec>
+    </StaticWebAsset>
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\Upload\CategoryImages\7e22caf2-8191-47fa-aaca-80cda1f53eaeblog3.jpg))">
       <SourceType>Package</SourceType>
       <SourceId>BlogApp.API</SourceId>
