@@ -11,7 +11,7 @@ namespace BlogApp.Business.Services.Intefaces
 {
     public interface ICategoryService
     {
-        Task<IQueryable<ReadCategoryDTO>> ReadAsync(
+        Task<ICollection<ReadCategoryDTO>> ReadAsync(
             Expression<Func<Category, bool>>? expression = null,
             Expression<Func<Category, object>>? expressionOrder = null,
             bool isDescending = false,

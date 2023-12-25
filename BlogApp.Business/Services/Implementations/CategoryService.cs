@@ -7,6 +7,7 @@ using BlogApp.Business.Services.Intefaces;
 using BlogApp.Core.Entities;
 using BlogApp.DAL.Repositories.Interfaces;
 using DianaWebApp.Helper;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using System;
@@ -46,11 +47,11 @@ namespace BlogApp.Business.Services.Implementations
             return result;
         }
 
-        public async Task<IQueryable<ReadCategoryDTO>> ReadAsync(Expression<Func<Category, bool>>? expression = null, Expression<Func<Category, object>>? expressionOrder = null, bool isDescending = false, params string[] includes)
+        public async Task<ICollection<ReadCategoryDTO>> ReadAsync(Expression<Func<Category, bool>>? expression = null, Expression<Func<Category, object>>? expressionOrder = null, bool isDescending = false, params string[] includes)
         {
             var result = await _rep.ReadAsync();
 
-            return _mapper.Map<IQueryable<ReadCategoryDTO>>(result);
+            return _mapper.Map<ICollection<ReadCategoryDTO>>(result.Include(x => x.ChildCategories));
         }
 
         public async Task<ReadCategoryDTO> ReadAsync(int Id)

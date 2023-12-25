@@ -19,6 +19,8 @@ namespace BlogApp.API
 
             builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
             builder.Services.AddScoped<ICategoryService, CategoryService>();
+            builder.Services.AddScoped<ICourseRepository, CourseRepository>();
+            builder.Services.AddScoped<ICourseService, CourseService>();
 
             builder.Services.AddAutoMapper(typeof(MapperProfile).Assembly);
 

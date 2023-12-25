@@ -11,6 +11,7 @@ namespace BlogApp.Core.Entities
     {
         public string Title { get; set; }
         public string Description { get; set; }
+        public int TeacherId { get; set; }
         public ICollection<Student>? Students { get; set; }
         public Teacher? Teacher { get; set; }
     }
