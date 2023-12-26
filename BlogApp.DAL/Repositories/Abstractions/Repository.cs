@@ -47,7 +47,8 @@ namespace BlogApp.DAL.Repositories.Abstractions
                 }
             }
 
-            return query.Where(x => !x.IsDeleted);
+            return query
+                .Where(x => !x.IsDeleted);
         }
 
         public async Task<T> ReadAsync(int Id)

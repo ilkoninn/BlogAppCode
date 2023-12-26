@@ -1,4 +1,5 @@
 ﻿using BlogApp.Core.Entities;
+using BlogApp.DAL.Configurations;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -15,16 +16,22 @@ namespace BlogApp.DAL.Context
         
         }
 
-        // Global Models in App
-        public DbSet<Category> Categories { get; set; }
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.ApplyConfiguration(new CategoryConfiguration());
+            modelBuilder.ApplyConfiguration(new StudentConfiguration());
+            modelBuilder.ApplyConfiguration(new TeacherConfiguration());
+            modelBuilder.ApplyConfiguration(new CourseConfiguration());
+
             modelBuilder.Entity<Category>()
                 .HasOne(s => s.ParentCategory)
                 .WithMany(m => m.ChildCategories)
                 .HasForeignKey(c => c.ParentCategoryId);
+
         }
+
+        // Global Models in App
+        public DbSet<Category> Categories { get; set; }
 
         // Base Models in App
         public DbSet<Teacher> Teachers { get; set; }

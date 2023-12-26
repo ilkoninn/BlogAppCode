@@ -49,9 +49,11 @@ namespace BlogApp.Business.Services.Implementations
 
         public async Task<ICollection<ReadCategoryDTO>> ReadAsync(Expression<Func<Category, bool>>? expression = null, Expression<Func<Category, object>>? expressionOrder = null, bool isDescending = false, params string[] includes)
         {
-            var result = await _rep.ReadAsync();
+            var result = await _rep.ReadAsync(expression, expressionOrder, isDescending, includes);
 
-            return _mapper.Map<ICollection<ReadCategoryDTO>>(result.Include(x => x.ChildCategories));
+            result = result.Include(x => x.ChildCategories);
+
+            return _mapper.Map<ICollection<ReadCategoryDTO>>(result);
         }
 
         public async Task<ReadCategoryDTO> ReadAsync(int Id)
@@ -74,7 +76,7 @@ namespace BlogApp.Business.Services.Implementations
             Category oldCategory = await _rep.ReadAsync(entity.Id);
 
             if(oldCategory is null) throw new ObjectNotFoundException();
-            if(await _rep.ReadAsync(entity.ParentCategoryId) is null) throw new ObjectNotFoundException();
+            //if(await _rep.ReadAsync(entity.ParentCategoryId) is null) throw new ObjectNotFoundException();
 
             oldCategory.Name = entity.Name;
             oldCategory.ParentCategoryId = entity.ParentCategoryId;

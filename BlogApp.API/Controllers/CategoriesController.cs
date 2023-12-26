@@ -27,7 +27,9 @@ namespace BlogApp.API.Controllers
         [HttpGet]
         public async Task<IActionResult> Read()
         {
-            return StatusCode(StatusCodes.Status200OK, await _service.ReadAsync());
+            var result = await _service.ReadAsync();
+
+            return StatusCode(StatusCodes.Status200OK, result);
         }
         [HttpGet("{Id}")]
         public async Task<IActionResult> ReadId(int Id)

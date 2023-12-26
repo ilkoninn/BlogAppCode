@@ -14,7 +14,7 @@ namespace BlogApp.Business.DTOs.CategoryDTOs
     public record UpdateCategoryDTO : BaseEntityDTO
     {
         public string Name { get; set; }
-        public int ParentCategoryId { get; set; }
+        public int? ParentCategoryId { get; set; }
 
     }
     public class UpdateCategoryDTOValidation : AbstractValidator<UpdateCategoryDTO>

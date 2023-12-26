@@ -18,8 +18,12 @@ namespace BlogApp.API
             CreateMap<Category, CreateCategoryDTO>();
             CreateMap<Category, UpdateCategoryDTO>().ReverseMap();
             CreateMap<Category, UpdateCategoryDTO>();
-            CreateMap<Category, ReadCategoryDTO>().ReverseMap();
-            CreateMap<Category, ReadCategoryDTO>();
+            CreateMap<Category, ReadCategoryDTO>()
+                .ReverseMap()
+                .ForMember(dest => dest.ChildCategories, opt => opt.MapFrom(src => src.ChildCategories));
+
+            CreateMap<Category, ReadCategoryDTO>()
+                .ForMember(dest => dest.ChildCategories, opt => opt.MapFrom(src => src.ChildCategories));
 
             // Student Section
             CreateMap<Student, CreateStudentDTO>().ReverseMap();
