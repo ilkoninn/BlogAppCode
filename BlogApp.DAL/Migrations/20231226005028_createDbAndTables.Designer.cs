@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BlogApp.DAL.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20231225145242_updateDbv2")]
-    partial class updateDbv2
+    [Migration("20231226005028_createDbAndTables")]
+    partial class createDbAndTables
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -74,7 +74,7 @@ namespace BlogApp.DAL.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
-                    b.Property<int?>("TeacherId")
+                    b.Property<int>("TeacherId")
                         .HasColumnType("int");
 
                     b.Property<string>("Title")
@@ -185,7 +185,9 @@ namespace BlogApp.DAL.Migrations
                 {
                     b.HasOne("BlogApp.Core.Entities.Teacher", "Teacher")
                         .WithMany()
-                        .HasForeignKey("TeacherId");
+                        .HasForeignKey("TeacherId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Teacher");
                 });

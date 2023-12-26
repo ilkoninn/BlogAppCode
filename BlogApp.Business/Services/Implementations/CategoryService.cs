@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using BlogApp.Business.DTOs.CategoryDTOs;
 using BlogApp.Business.Exceptions;
-using BlogApp.Business.Exceptions.CategoryExceptions;
 using BlogApp.Business.Exceptions.Common;
 using BlogApp.Business.Services.Intefaces;
 using BlogApp.Core.Entities;
@@ -32,11 +31,12 @@ namespace BlogApp.Business.Services.Implementations
 
         public async Task<Category> CreateAsync(CreateCategoryDTO entity, string env)
         {
-            if (entity is null) throw new CategoryNullException();
+            if (entity is null) throw new ObjectNullException();
 
             Category newCategory = new() 
             {
                 Name = entity.Name,
+                ParentCategoryId = entity.ParentCategoryId,
                 UpdatedDate = DateTime.Now,
                 CreatedDate = DateTime.Now
             };
@@ -60,7 +60,7 @@ namespace BlogApp.Business.Services.Implementations
 
             var result = await _rep.ReadAsync(Id);
 
-            if (result is null) throw new CategoryNotFoundException();
+            if (result is null) throw new ObjectNotFoundException();
 
 
             return _mapper.Map<ReadCategoryDTO>(result);
@@ -68,13 +68,16 @@ namespace BlogApp.Business.Services.Implementations
 
         public async Task<Category> UpdateAsync(UpdateCategoryDTO entity, string env)
         {
-            if (entity.Id <= 0 || entity.Id == null) throw new NegativeIdException();
+            if (entity.Id <= 0 || entity.Id == null || 
+                entity.ParentCategoryId <= 0 || entity.ParentCategoryId == null) throw new NegativeIdException();
 
             Category oldCategory = await _rep.ReadAsync(entity.Id);
 
-            if(oldCategory is null) throw new CategoryNotFoundException();
+            if(oldCategory is null) throw new ObjectNotFoundException();
+            if(await _rep.ReadAsync(entity.ParentCategoryId) is null) throw new ObjectNotFoundException();
 
             oldCategory.Name = entity.Name;
+            oldCategory.ParentCategoryId = entity.ParentCategoryId;
             oldCategory.UpdatedDate = DateTime.Now;
             oldCategory.CreatedDate = oldCategory.CreatedDate;
             
@@ -90,7 +93,7 @@ namespace BlogApp.Business.Services.Implementations
 
             Category oldCategory = await _rep.ReadAsync(Id);
 
-            if (oldCategory is null) throw new CategoryNotFoundException();
+            if (oldCategory is null) throw new ObjectNotFoundException();
 
 
             await _rep.DeleteAsync(oldCategory);

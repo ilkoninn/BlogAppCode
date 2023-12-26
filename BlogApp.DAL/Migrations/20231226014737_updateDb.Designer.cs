@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BlogApp.DAL.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20231225135834_createDBandTables")]
-    partial class createDBandTables
+    [Migration("20231226014737_updateDb")]
+    partial class updateDb
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -35,10 +35,6 @@ namespace BlogApp.DAL.Migrations
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
-
-                    b.Property<string>("ImgUrl")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
@@ -78,7 +74,7 @@ namespace BlogApp.DAL.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
-                    b.Property<int?>("TeacherId")
+                    b.Property<int>("TeacherId")
                         .HasColumnType("int");
 
                     b.Property<string>("Title")
@@ -93,6 +89,38 @@ namespace BlogApp.DAL.Migrations
                     b.HasIndex("TeacherId");
 
                     b.ToTable("Courses");
+                });
+
+            modelBuilder.Entity("BlogApp.Core.Entities.CourseStudent", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("CourseId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("StudentId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CourseId");
+
+                    b.HasIndex("StudentId");
+
+                    b.ToTable("CourseStudents");
                 });
 
             modelBuilder.Entity("BlogApp.Core.Entities.Student", b =>
@@ -161,21 +189,6 @@ namespace BlogApp.DAL.Migrations
                     b.ToTable("Teachers");
                 });
 
-            modelBuilder.Entity("CourseStudent", b =>
-                {
-                    b.Property<int>("CoursesId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("StudentsId")
-                        .HasColumnType("int");
-
-                    b.HasKey("CoursesId", "StudentsId");
-
-                    b.HasIndex("StudentsId");
-
-                    b.ToTable("CourseStudent");
-                });
-
             modelBuilder.Entity("BlogApp.Core.Entities.Category", b =>
                 {
                     b.HasOne("BlogApp.Core.Entities.Category", "ParentCategory")
@@ -189,29 +202,45 @@ namespace BlogApp.DAL.Migrations
                 {
                     b.HasOne("BlogApp.Core.Entities.Teacher", "Teacher")
                         .WithMany()
-                        .HasForeignKey("TeacherId");
+                        .HasForeignKey("TeacherId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Teacher");
                 });
 
-            modelBuilder.Entity("CourseStudent", b =>
+            modelBuilder.Entity("BlogApp.Core.Entities.CourseStudent", b =>
                 {
-                    b.HasOne("BlogApp.Core.Entities.Course", null)
-                        .WithMany()
-                        .HasForeignKey("CoursesId")
+                    b.HasOne("BlogApp.Core.Entities.Course", "Course")
+                        .WithMany("CourseStudents")
+                        .HasForeignKey("CourseId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("BlogApp.Core.Entities.Student", null)
-                        .WithMany()
-                        .HasForeignKey("StudentsId")
+                    b.HasOne("BlogApp.Core.Entities.Student", "Student")
+                        .WithMany("CourseStudents")
+                        .HasForeignKey("StudentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Course");
+
+                    b.Navigation("Student");
                 });
 
             modelBuilder.Entity("BlogApp.Core.Entities.Category", b =>
                 {
                     b.Navigation("ChildCategories");
+                });
+
+            modelBuilder.Entity("BlogApp.Core.Entities.Course", b =>
+                {
+                    b.Navigation("CourseStudents");
+                });
+
+            modelBuilder.Entity("BlogApp.Core.Entities.Student", b =>
+                {
+                    b.Navigation("CourseStudents");
                 });
 #pragma warning restore 612, 618
         }

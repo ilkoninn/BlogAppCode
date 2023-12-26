@@ -14,6 +14,6 @@ namespace BlogApp.Business.DTOs.StudentDTOs
         public string Name { get; set; }
         public string Surname { get; set; }
         public byte Age { get; set; }
-        public ICollection<ReadCourseDTO> Courses { get; set; }
+        public ICollection<CreateCourseDTO> Courses { get; set; }
     }
 }

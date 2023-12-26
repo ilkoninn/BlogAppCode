@@ -4,6 +4,7 @@ using BlogApp.Business.Exceptions.Common;
 using BlogApp.Business.Services.Intefaces;
 using BlogApp.Core.Entities;
 using BlogApp.DAL.Repositories.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,7 +27,7 @@ namespace BlogApp.Business.Services.Implementations
 
         public async Task<Course> CreateAsync(CreateCourseDTO entity, string env)
         {
-            //if (entity is null) throw new CourseNullException();
+            if (entity is null) throw new ObjectNullException();
 
             Course newCourse = new()
             {
@@ -47,7 +48,8 @@ namespace BlogApp.Business.Services.Implementations
         {
             var result = await _rep.ReadAsync();
 
-            return _mapper.Map<ICollection<ReadCourseDTO>>(result);
+            return _mapper.Map<ICollection<ReadCourseDTO>>(result
+                .Include(x => x.Teacher));
         }
 
         public async Task<ReadCourseDTO> ReadAsync(int Id)
@@ -56,7 +58,7 @@ namespace BlogApp.Business.Services.Implementations
 
             var result = await _rep.ReadAsync(Id);
 
-            //if (result is null) throw new CourseNotFoundException();
+            if (result is null) throw new ObjectNotFoundException();
 
 
             return _mapper.Map<ReadCourseDTO>(result);
@@ -68,7 +70,7 @@ namespace BlogApp.Business.Services.Implementations
 
             Course oldCourse = await _rep.ReadAsync(entity.Id);
 
-            //if (oldCourse is null) throw new CourseNotFoundException();
+            if (oldCourse is null) throw new ObjectNotFoundException();
 
             oldCourse.Title = entity.Title;
             oldCourse.Description = entity.Description;
@@ -87,7 +89,7 @@ namespace BlogApp.Business.Services.Implementations
 
             Course oldCourse = await _rep.ReadAsync(Id);
 
-            //if (oldCourse is null) throw new CourseNotFoundException();
+            if (oldCourse is null) throw new ObjectNotFoundException();
 
 
             await _rep.DeleteAsync(oldCourse);

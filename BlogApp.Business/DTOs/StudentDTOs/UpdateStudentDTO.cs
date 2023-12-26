@@ -1,4 +1,5 @@
-﻿using BlogApp.Business.DTOs.CommonDTOs;
+﻿using BlogApp.Business.DTOs.CategoryDTOs;
+using BlogApp.Business.DTOs.CommonDTOs;
 using BlogApp.Core.Entities;
 using System;
 using System.Collections.Generic;
@@ -13,6 +14,6 @@ namespace BlogApp.Business.DTOs.StudentDTOs
         public string Name { get; set; }
         public string Surname { get; set; }
         public byte Age { get; set; }
-        public ICollection<Course> Courses { get; set; }
+        public ICollection<UpdateCategoryDTO> Courses { get; set; }
     }
 }

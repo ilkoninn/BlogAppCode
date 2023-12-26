@@ -1,4 +1,5 @@
 ﻿using BlogApp.Business.DTOs.CommonDTOs;
+using BlogApp.Business.DTOs.CourseDTOs;
 using BlogApp.Core.Entities;
 using Microsoft.Identity.Client;
 using System;
@@ -14,6 +15,6 @@ namespace BlogApp.Business.DTOs.StudentDTOs
         public string Name { get; set; }
         public string Surname { get; set; }
         public byte Age { get; set; }
-        public ICollection<Course> Courses { get; set; } 
+        public ICollection<ReadCourseDTO> Courses { get; set; } 
     }
 }
