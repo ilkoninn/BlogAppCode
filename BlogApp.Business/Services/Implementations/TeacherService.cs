@@ -4,6 +4,7 @@ using BlogApp.Business.Exceptions.Common;
 using BlogApp.Business.Services.Intefaces;
 using BlogApp.Core.Entities;
 using BlogApp.DAL.Repositories.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -47,7 +48,7 @@ namespace BlogApp.Business.Services.Implementations
         {
             var result = await _rep.ReadAsync();
 
-            return _mapper.Map<ICollection<ReadTeacherDTO>>(result);
+            return _mapper.Map<ICollection<ReadTeacherDTO>>(result.Include(x => x.Courses));
         }
 
         public async Task<ReadTeacherDTO> ReadAsync(int Id)

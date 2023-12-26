@@ -48,7 +48,7 @@ namespace BlogApp.Business.Services.Implementations
         {
             var result = await _rep.ReadAsync();
 
-            return _mapper.Map<ICollection<ReadStudentDTO>>(result.Include(x => x.CourseStudents).ThenInclude(x => x.Course));
+            return _mapper.Map<ICollection<ReadStudentDTO>>(result);
         }
 
         public async Task<ReadStudentDTO> ReadAsync(int Id)

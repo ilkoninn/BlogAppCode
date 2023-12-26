@@ -51,7 +51,7 @@ namespace BlogApp.Business.Services.Implementations
         {
             var result = await _rep.ReadAsync(expression, expressionOrder, isDescending, includes);
 
-            result = result.Include(x => x.ChildCategories);
+            //result = result.Include(x => x.ChildCategories);
 
             return _mapper.Map<ICollection<ReadCategoryDTO>>(result);
         }

@@ -14,7 +14,7 @@ namespace BlogApp.Business.DTOs.CategoryDTOs
         public string Name { get; set; }
         public int? ParentCategoryId { get; set; }
         public ReadCategoryDTO ParentCategory { get; set; }
-        public ICollection<ReadCategoryDTO> ChildCategories { get; set; }
+        public ICollection<int> ChildCategories { get; set; }
     }
     public class ReadCategoryDTOValidation : AbstractValidator<ReadCategoryDTO>
     {

@@ -4,6 +4,7 @@ using BlogApp.Business.DTOs.CourseDTOs;
 using BlogApp.Business.DTOs.StudentDTOs;
 using BlogApp.Business.DTOs.TeacherDTOs;
 using BlogApp.Core.Entities;
+using System;
 using System.ComponentModel;
 
 namespace BlogApp.API
@@ -13,17 +14,34 @@ namespace BlogApp.API
         public MapperProfile()
         {
 
+            
             // Category Section
+
             CreateMap<Category, CreateCategoryDTO>().ReverseMap();
             CreateMap<Category, CreateCategoryDTO>();
             CreateMap<Category, UpdateCategoryDTO>().ReverseMap();
             CreateMap<Category, UpdateCategoryDTO>();
+            /*CreateMap<Category, ReadCategoryDTO>().ReverseMap().IncludeMembers(s => s.ChildCategories);*/
+            /*CreateMap<Category, ReadCategoryDTO>().IncludeMembers(s => s.ChildCategories);*/
+            /*CreateMap<ICollection<ReadCategoryDTO>, Category>()
+            .ForMember(x => x.PersonId, opt => opt.MapFrom(x => x.FirstOrDefault().PersonId))
+            .ForMember(x => x.PersonName, opt => opt.MapFrom(x => x.FirstOrDefault().PersonName))
+            .ForMember(x => x.Pets, opt =>
+            opt.MapFrom(x => x.Select(y => new Pet
+            {
+                PetId = y.PetId
+                PetName = y.PetName
+            })));
+
             CreateMap<Category, ReadCategoryDTO>()
+    .ForMember(d => d.MemberIds, o => o.MapFrom(s => s.Member.Select(m => m.Id)));*/
+
+            /*CreateMap<Category, ReadCategoryDTO>()
                 .ReverseMap()
                 .ForMember(dest => dest.ChildCategories, opt => opt.MapFrom(src => src.ChildCategories));
 
             CreateMap<Category, ReadCategoryDTO>()
-                .ForMember(dest => dest.ChildCategories, opt => opt.MapFrom(src => src.ChildCategories));
+                .ForMember(dest => dest.ChildCategories, opt => opt.MapFrom(src => src.ChildCategories));*/
 
             // Student Section
             CreateMap<Student, CreateStudentDTO>().ReverseMap();
