@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BlogApp.Business.DTOs.CourseDTOs;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,5 +12,6 @@ namespace BlogApp.Business.DTOs.TeacherDTOs
         public string Name { get; set; }
         public string Surname { get; set; }
         public byte Age { get; set; }
+        public ICollection<MiniReadCourseDTO> Courses { get; set; }
     }
 }

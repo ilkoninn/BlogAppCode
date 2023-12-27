@@ -9,11 +9,17 @@ using System.Threading.Tasks;
 
 namespace BlogApp.Business.DTOs.TeacherDTOs
 {
-    public record ReadTeacherDTO : BaseAuditableTableDTO
+    public record ReadTeacherDTO : BaseEntityDTO
     {
         public string Name { get; set; }
         public string Surname { get; set; }
         public byte Age { get; set; }
-        public ICollection<ReadCourseDTO> Courses { get; set; }
+        public ICollection<MiniReadCourseDTO> Courses { get; set; }
+    }
+    public record MiniReadTeacherDTO : BaseEntityDTO 
+    {
+        public string Name { get; set; }
+        public string Surname { get; set; }
+        public byte Age { get; set; }
     }
 }

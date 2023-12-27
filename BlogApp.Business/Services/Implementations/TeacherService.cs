@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using BlogApp.Business.DTOs.TeacherDTOs;
+using BlogApp.Business.DTOs.TeacherDTOs;
 using BlogApp.Business.Exceptions.Common;
 using BlogApp.Business.Services.Intefaces;
 using BlogApp.Core.Entities;
@@ -34,6 +35,7 @@ namespace BlogApp.Business.Services.Implementations
                 Name = entity.Name,
                 Surname = entity.Surname,
                 Age = entity.Age,
+                Courses = _mapper.Map<ICollection<Course>>(entity.Courses),
                 UpdatedDate = DateTime.Now,
                 CreatedDate = DateTime.Now
             };
@@ -48,19 +50,21 @@ namespace BlogApp.Business.Services.Implementations
         {
             var result = await _rep.ReadAsync();
 
-            return _mapper.Map<ICollection<ReadTeacherDTO>>(result.Include(x => x.Courses));
+            var query = _mapper.Map<ICollection<ReadTeacherDTO>>(result.Include(x => x.Courses));
+
+            return query;
         }
 
-        public async Task<ReadTeacherDTO> ReadAsync(int Id)
+        public async Task<DetailTeacherDTO> ReadIdAsync(int Id)
         {
             if (Id <= 0 || Id == null) throw new NegativeIdException();
 
-            var result = await _rep.ReadIdAsync(Id);
+            var result = await _rep.ReadIdAsync(Id, entityIncludes: "Courses");
 
             if (result is null) throw new ObjectNotFoundException();
 
 
-            return _mapper.Map<ReadTeacherDTO>(result);
+            return _mapper.Map<DetailTeacherDTO>(result);
         }
 
         public async Task<Teacher> UpdateAsync(UpdateTeacherDTO entity, string env)
@@ -97,5 +101,6 @@ namespace BlogApp.Business.Services.Implementations
 
             return oldTeacher;
         }
+
     }
 }

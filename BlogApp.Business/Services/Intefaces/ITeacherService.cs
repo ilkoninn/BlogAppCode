@@ -12,7 +12,7 @@ namespace BlogApp.Business.Services.Intefaces
     public interface ITeacherService
     {
         Task<ICollection<ReadTeacherDTO>> ReadAsync();
-        Task<ReadTeacherDTO> ReadAsync(int Id);
+        Task<DetailTeacherDTO> ReadIdAsync(int Id);
         Task<Teacher> CreateAsync(CreateTeacherDTO entity, string env);
         Task<Teacher> UpdateAsync(UpdateTeacherDTO entity, string env);
         Task<Teacher> DeleteAsync(int Id);

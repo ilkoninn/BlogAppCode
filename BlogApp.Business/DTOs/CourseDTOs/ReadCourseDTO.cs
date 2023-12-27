@@ -10,12 +10,17 @@ using System.Threading.Tasks;
 
 namespace BlogApp.Business.DTOs.CourseDTOs
 {
-    public record ReadCourseDTO : BaseAuditableTableDTO
+    public record ReadCourseDTO : BaseEntityDTO
     {
         public string Title { get; set; }
         public string Description { get; set; }
         public int TeacherId { get; set; }
-        public ICollection<ReadStudentDTO>? Students { get; set; }
-        public ReadTeacherDTO? Teacher { get; set; }
+        public MiniReadTeacherDTO? Teacher { get; set; }
+        public ICollection<MiniReadStudentDTO>? Students { get; set; }
+    }
+    public record MiniReadCourseDTO : BaseEntityDTO
+    { 
+        public string Title { get; set; }
+        public string Description { get; set; }
     }
 }

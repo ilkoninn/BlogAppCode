@@ -71,12 +71,11 @@ namespace BlogApp.Business.Services.Implementations
         public async Task<Category> UpdateAsync(UpdateCategoryDTO entity, string env)
         {
             if (entity.Id <= 0 || entity.Id == null || 
-                entity.ParentCategoryId <= 0 || entity.ParentCategoryId == null) throw new NegativeIdException();
+                entity.ParentCategoryId <= 0) throw new NegativeIdException();
 
             Category oldCategory = await _rep.ReadIdAsync(entity.Id);
 
             if(oldCategory is null) throw new ObjectNotFoundException();
-            //if(await _rep.ReadAsync(entity.ParentCategoryId) is null) throw new ObjectNotFoundException();
 
             oldCategory.Name = entity.Name;
             oldCategory.ParentCategoryId = entity.ParentCategoryId;

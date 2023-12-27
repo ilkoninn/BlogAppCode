@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using BlogApp.Business.DTOs.CourseDTOs;
 using BlogApp.Business.DTOs.StudentDTOs;
 using BlogApp.Business.Exceptions.Common;
 using BlogApp.Business.Services.Intefaces;
@@ -48,19 +49,21 @@ namespace BlogApp.Business.Services.Implementations
         {
             var result = await _rep.ReadAsync();
 
-            return _mapper.Map<ICollection<ReadStudentDTO>>(result);
+            var query = _mapper.Map<ICollection<ReadStudentDTO>>(result.Include(x => x.Courses).ToList());
+
+            return query;
         }
 
-        public async Task<ReadStudentDTO> ReadAsync(int Id)
+        public async Task<DetailStudentDTO> ReadIdAsync(int Id)
         {
             if (Id <= 0 || Id == null) throw new NegativeIdException();
 
-            var result = await _rep.ReadIdAsync(Id);
+            var result = await _rep.ReadIdAsync(Id, entityIncludes: "Courses");
 
             if (result is null) throw new ObjectNotFoundException();
 
 
-            return _mapper.Map<ReadStudentDTO>(result);
+            return _mapper.Map<DetailStudentDTO>(result);
         }
 
         public async Task<Student> UpdateAsync(UpdateStudentDTO entity, string env)
