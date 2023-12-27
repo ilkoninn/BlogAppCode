@@ -1,10 +1,13 @@
 using BlogApp.Business.DTOs.CategoryDTOs;
+using BlogApp.Business.Services;
 using BlogApp.Business.Services.Implementations;
 using BlogApp.Business.Services.Intefaces;
+using BlogApp.Core.Entities.Account;
 using BlogApp.DAL.Context;
 using BlogApp.DAL.Repositories.Abstractions;
 using BlogApp.DAL.Repositories.Interfaces;
 using FluentValidation.AspNetCore;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json.Serialization;
 
@@ -18,14 +21,12 @@ namespace BlogApp.API
 
             // Add services to the container.
 
+            builder.Services.AddServices();
+
             builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
-            builder.Services.AddScoped<ICategoryService, CategoryService>();
             builder.Services.AddScoped<ICourseRepository, CourseRepository>();
-            builder.Services.AddScoped<ICourseService, CourseService>();
             builder.Services.AddScoped<ITeacherRepository, TeacherRepository>();
-            builder.Services.AddScoped<ITeacherService, TeacherService>();
             builder.Services.AddScoped<IStudentRepository, StudentRepository>();
-            builder.Services.AddScoped<IStudentService, StudentService>();
 
             builder.Services.AddAutoMapper(typeof(MapperProfile).Assembly);
 
@@ -38,6 +39,13 @@ namespace BlogApp.API
 
             }).AddJsonOptions(x =>
                 x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
+
+            builder.Services.AddIdentity<AppUser, IdentityRole>(opt =>
+            {
+                
+                opt.Password.RequireNonAlphanumeric = false;
+
+            }).AddDefaultTokenProviders().AddEntityFrameworkStores<AppDbContext>();
 
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
