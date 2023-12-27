@@ -16,32 +16,31 @@ namespace BlogApp.API
 
             
             // Category Section
-
             CreateMap<Category, CreateCategoryDTO>().ReverseMap();
             CreateMap<Category, CreateCategoryDTO>();
             CreateMap<Category, UpdateCategoryDTO>().ReverseMap();
             CreateMap<Category, UpdateCategoryDTO>();
-            /*CreateMap<Category, ReadCategoryDTO>().ReverseMap().IncludeMembers(s => s.ChildCategories);*/
-            /*CreateMap<Category, ReadCategoryDTO>().IncludeMembers(s => s.ChildCategories);*/
-            /*CreateMap<ICollection<ReadCategoryDTO>, Category>()
-            .ForMember(x => x.PersonId, opt => opt.MapFrom(x => x.FirstOrDefault().PersonId))
-            .ForMember(x => x.PersonName, opt => opt.MapFrom(x => x.FirstOrDefault().PersonName))
-            .ForMember(x => x.Pets, opt =>
-            opt.MapFrom(x => x.Select(y => new Pet
-            {
-                PetId = y.PetId
-                PetName = y.PetName
-            })));
 
             CreateMap<Category, ReadCategoryDTO>()
-    .ForMember(d => d.MemberIds, o => o.MapFrom(s => s.Member.Select(m => m.Id)));*/
+                .ForMember(dest => dest.ChildCategories, opt => opt.MapFrom(src => src.ChildCategories))
+                .ForMember(dest => dest.ParentCategory, opt => opt.MapFrom(src => src.ParentCategory));
+            CreateMap<Category, ReadCategoryDTO>().ReverseMap()
+                .ForMember(dest => dest.ChildCategories, opt => opt.MapFrom(src => src.ChildCategories))
+                .ForMember(dest => dest.ParentCategory, opt => opt.MapFrom(src => src.ParentCategory));
 
-            /*CreateMap<Category, ReadCategoryDTO>()
+            CreateMap<Category, MiniReadCategoryDTO>().ReverseMap();
+            CreateMap<Category, MiniReadCategoryDTO>();
+
+            CreateMap<Category, DetailCategoryDTO>()
                 .ReverseMap()
-                .ForMember(dest => dest.ChildCategories, opt => opt.MapFrom(src => src.ChildCategories));
+                .ForMember(dest => dest.ChildCategories, opt => opt.MapFrom(src => src.ChildCategories))
+                .ForMember(dest => dest.ParentCategory, opt => opt.MapFrom(src => src.ParentCategory));
 
-            CreateMap<Category, ReadCategoryDTO>()
-                .ForMember(dest => dest.ChildCategories, opt => opt.MapFrom(src => src.ChildCategories));*/
+            CreateMap<Category, DetailCategoryDTO>()
+                .ForMember(dest => dest.ChildCategories, opt => opt.MapFrom(src => src.ChildCategories))
+                .ForMember(dest => dest.ParentCategory, opt => opt.MapFrom(src => src.ParentCategory));
+
+
 
             // Student Section
             CreateMap<Student, CreateStudentDTO>().ReverseMap();
@@ -64,11 +63,8 @@ namespace BlogApp.API
             CreateMap<Course, CreateCourseDTO>();
             CreateMap<Course, UpdateCourseDTO>().ReverseMap();
             CreateMap<Course, UpdateCourseDTO>();
-            CreateMap<Course, ReadCourseDTO>()
-                .ReverseMap()
-                .ForMember(x => x.CourseStudents, opt => opt.MapFrom(x => x.Students));
-            CreateMap<Course, ReadCourseDTO>()
-                .ForMember(x => x.Students, opt => opt.MapFrom(x => x.CourseStudents));
+            CreateMap<Course, ReadCourseDTO>().ReverseMap();
+            CreateMap<Course, ReadCourseDTO>();
 
         }
 

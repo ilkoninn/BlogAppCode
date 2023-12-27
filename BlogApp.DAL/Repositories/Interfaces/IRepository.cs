@@ -16,10 +16,10 @@ namespace BlogApp.DAL.Repositories.Interfaces
             bool isDescending = false,
             params string[] includes
             );
-        Task<T> ReadAsync(int Id);
+        Task<T> ReadIdAsync(int Id = 0, params string[] entityIncludes);
         Task<T> CreateAsync(T entity);
         Task<T> UpdateAsync(T entity);
-        Task<T> DeleteAsync(T entity);
+        Task<T> DeleteAsync(int Id);
         Task<int> SaveChangesAsync();
     }
 }

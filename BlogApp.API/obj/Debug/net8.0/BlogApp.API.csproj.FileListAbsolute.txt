@@ -299,3 +299,4 @@ C:\Users\II novbe\Desktop\BlogAppCode\BlogApp.API\obj\Debug\net8.0\BlogApp.API.p
 C:\Users\II novbe\Desktop\BlogAppCode\BlogApp.API\obj\Debug\net8.0\BlogApp.API.genruntimeconfig.cache
 C:\Users\II novbe\Desktop\BlogAppCode\BlogApp.API\obj\Debug\net8.0\ref\BlogApp.API.dll
 C:\Users\II novbe\Desktop\BlogAppCode\BlogApp.API\bin\Debug\net8.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
+C:\Users\99470\Desktop\BlogApp\BlogApp.API\bin\Debug\net8.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll

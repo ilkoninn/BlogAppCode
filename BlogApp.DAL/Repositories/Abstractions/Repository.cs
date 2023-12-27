@@ -9,6 +9,7 @@ using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace BlogApp.DAL.Repositories.Abstractions
 {
@@ -47,13 +48,22 @@ namespace BlogApp.DAL.Repositories.Abstractions
                 }
             }
 
-            return query
-                .Where(x => !x.IsDeleted);
+            return query.Where(x => !x.IsDeleted);
         }
 
-        public async Task<T> ReadAsync(int Id)
+        public async Task<T> ReadIdAsync(int Id = 0, params string[] entityIncludes)
         {
-            return await _dbSet.AsNoTracking().FirstOrDefaultAsync(x => x.Id == Id && !x.IsDeleted);
+            IQueryable<T> query = _dbSet;
+
+            if (entityIncludes is not null)
+            {
+                for (int i = 0; i < entityIncludes.Length; i++)
+                {
+                    query = query.Include(entityIncludes[i]);
+                }
+            }
+
+            return await query.AsNoTracking().FirstOrDefaultAsync(x => x.Id == Id && !x.IsDeleted);
         }
 
         public async Task<T> CreateAsync(T entity)
@@ -69,13 +79,12 @@ namespace BlogApp.DAL.Repositories.Abstractions
             return entity;
         }
 
-        public async Task<T> DeleteAsync(T entity)
+        public async Task<T> DeleteAsync(int Id)
         {
-            entity.IsDeleted = true;
+            (await _dbSet.FindAsync(Id)).IsDeleted = true;
 
-            _dbSet.Update(entity);
 
-            return entity;
+            return (await _dbSet.FindAsync(Id));
         }
         
         public async Task<int> SaveChangesAsync()

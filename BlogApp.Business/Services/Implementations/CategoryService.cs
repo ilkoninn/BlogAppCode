@@ -47,25 +47,25 @@ namespace BlogApp.Business.Services.Implementations
             return result;
         }
 
-        public async Task<ICollection<ReadCategoryDTO>> ReadAsync(Expression<Func<Category, bool>>? expression = null, Expression<Func<Category, object>>? expressionOrder = null, bool isDescending = false, params string[] includes)
+        public async Task<ICollection<ReadCategoryDTO>> ReadAsync()
         {
-            var result = await _rep.ReadAsync(expression, expressionOrder, isDescending, includes);
+            var result = await _rep.ReadAsync();
 
-            //result = result.Include(x => x.ChildCategories);
+            var query = _mapper.Map<ICollection<ReadCategoryDTO>>(result.Include(x => x.ChildCategories));
 
-            return _mapper.Map<ICollection<ReadCategoryDTO>>(result);
+            return query;
         }
 
-        public async Task<ReadCategoryDTO> ReadAsync(int Id)
+        public async Task<DetailCategoryDTO> ReadIdAsync(int Id)
         {
             if (Id <= 0 || Id == null) throw new NegativeIdException();
 
-            var result = await _rep.ReadAsync(Id);
+            var result = await _rep.ReadIdAsync(Id, entityIncludes: "ChildCategories");
 
             if (result is null) throw new ObjectNotFoundException();
 
 
-            return _mapper.Map<ReadCategoryDTO>(result);
+            return _mapper.Map<DetailCategoryDTO>(result);
         }
 
         public async Task<Category> UpdateAsync(UpdateCategoryDTO entity, string env)
@@ -73,7 +73,7 @@ namespace BlogApp.Business.Services.Implementations
             if (entity.Id <= 0 || entity.Id == null || 
                 entity.ParentCategoryId <= 0 || entity.ParentCategoryId == null) throw new NegativeIdException();
 
-            Category oldCategory = await _rep.ReadAsync(entity.Id);
+            Category oldCategory = await _rep.ReadIdAsync(entity.Id);
 
             if(oldCategory is null) throw new ObjectNotFoundException();
             //if(await _rep.ReadAsync(entity.ParentCategoryId) is null) throw new ObjectNotFoundException();
@@ -93,12 +93,19 @@ namespace BlogApp.Business.Services.Implementations
         {
             if (Id <= 0 || Id == null) throw new NegativeIdException();
 
-            Category oldCategory = await _rep.ReadAsync(Id);
+            Category oldCategory = await _rep.ReadIdAsync(Id);
 
             if (oldCategory is null) throw new ObjectNotFoundException();
 
+            foreach (var item in await _rep.ReadAsync())
+            {
+                if(item.ParentCategoryId == oldCategory.Id)
+                {
+                    item.ParentCategoryId = null;
+                }
+            }
 
-            await _rep.DeleteAsync(oldCategory);
+            await _rep.DeleteAsync(Id);
             await _rep.SaveChangesAsync();
 
             return oldCategory;

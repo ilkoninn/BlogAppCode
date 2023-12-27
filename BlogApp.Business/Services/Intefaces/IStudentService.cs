@@ -11,12 +11,7 @@ namespace BlogApp.Business.Services.Intefaces
 {
     public interface IStudentService
     {
-        Task<ICollection<ReadStudentDTO>> ReadAsync(
-        Expression<Func<Student, bool>>? expression = null,
-        Expression<Func<Student, object>>? expressionOrder = null,
-        bool isDescending = false,
-        params string[] includes
-        );
+        Task<ICollection<ReadStudentDTO>> ReadAsync();
         Task<ReadStudentDTO> ReadAsync(int Id);
         Task<Student> CreateAsync(CreateStudentDTO entity, string env);
         Task<Student> UpdateAsync(UpdateStudentDTO entity, string env);

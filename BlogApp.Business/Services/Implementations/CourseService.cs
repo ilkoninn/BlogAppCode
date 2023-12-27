@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using BlogApp.Business.DTOs.CategoryDTOs;
 using BlogApp.Business.DTOs.CourseDTOs;
 using BlogApp.Business.Exceptions.Common;
 using BlogApp.Business.Services.Intefaces;
@@ -44,7 +45,7 @@ namespace BlogApp.Business.Services.Implementations
             return result;
         }
 
-        public async Task<ICollection<ReadCourseDTO>> ReadAsync(Expression<Func<Course, bool>>? expression = null, Expression<Func<Course, object>>? expressionOrder = null, bool isDescending = false, params string[] includes)
+        public async Task<ICollection<ReadCourseDTO>> ReadAsync()
         {
             var result = await _rep.ReadAsync();
 
@@ -56,7 +57,7 @@ namespace BlogApp.Business.Services.Implementations
         {
             if (Id <= 0 || Id == null) throw new NegativeIdException();
 
-            var result = await _rep.ReadAsync(Id);
+            var result = await _rep.ReadIdAsync(Id);
 
             if (result is null) throw new ObjectNotFoundException();
 
@@ -68,7 +69,7 @@ namespace BlogApp.Business.Services.Implementations
         {
             if (entity.Id <= 0 || entity.Id == null) throw new NegativeIdException();
 
-            Course oldCourse = await _rep.ReadAsync(entity.Id);
+            Course oldCourse = await _rep.ReadIdAsync(entity.Id);
 
             if (oldCourse is null) throw new ObjectNotFoundException();
 
@@ -87,12 +88,12 @@ namespace BlogApp.Business.Services.Implementations
         {
             if (Id <= 0 || Id == null) throw new NegativeIdException();
 
-            Course oldCourse = await _rep.ReadAsync(Id);
+            Course oldCourse = await _rep.ReadIdAsync(Id);
 
             if (oldCourse is null) throw new ObjectNotFoundException();
 
 
-            await _rep.DeleteAsync(oldCourse);
+            await _rep.DeleteAsync(Id);
             await _rep.SaveChangesAsync();
 
             return oldCourse;

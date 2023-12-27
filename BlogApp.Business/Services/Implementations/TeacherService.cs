@@ -44,7 +44,7 @@ namespace BlogApp.Business.Services.Implementations
             return result;
         }
 
-        public async Task<ICollection<ReadTeacherDTO>> ReadAsync(Expression<Func<Teacher, bool>>? expression = null, Expression<Func<Teacher, object>>? expressionOrder = null, bool isDescending = false, params string[] includes)
+        public async Task<ICollection<ReadTeacherDTO>> ReadAsync()
         {
             var result = await _rep.ReadAsync();
 
@@ -55,7 +55,7 @@ namespace BlogApp.Business.Services.Implementations
         {
             if (Id <= 0 || Id == null) throw new NegativeIdException();
 
-            var result = await _rep.ReadAsync(Id);
+            var result = await _rep.ReadIdAsync(Id);
 
             if (result is null) throw new ObjectNotFoundException();
 
@@ -67,7 +67,7 @@ namespace BlogApp.Business.Services.Implementations
         {
             if (entity.Id <= 0 || entity.Id == null) throw new NegativeIdException();
 
-            Teacher oldTeacher = await _rep.ReadAsync(entity.Id);
+            Teacher oldTeacher = await _rep.ReadIdAsync(entity.Id);
 
             if (oldTeacher is null) throw new ObjectNotFoundException();
 
@@ -87,12 +87,12 @@ namespace BlogApp.Business.Services.Implementations
         {
             if (Id <= 0 || Id == null) throw new NegativeIdException();
 
-            Teacher oldTeacher = await _rep.ReadAsync(Id);
+            Teacher oldTeacher = await _rep.ReadIdAsync(Id);
 
             if (oldTeacher is null) throw new ObjectNotFoundException();
 
 
-            await _rep.DeleteAsync(oldTeacher);
+            await _rep.DeleteAsync(Id);
             await _rep.SaveChangesAsync();
 
             return oldTeacher;

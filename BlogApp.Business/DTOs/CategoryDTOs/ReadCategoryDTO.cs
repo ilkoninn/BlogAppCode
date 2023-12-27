@@ -9,20 +9,16 @@ using System.Threading.Tasks;
 
 namespace BlogApp.Business.DTOs.CategoryDTOs
 {
-    public record ReadCategoryDTO : BaseAuditableTableDTO
+    public record ReadCategoryDTO : BaseEntityDTO
     {
         public string Name { get; set; }
         public int? ParentCategoryId { get; set; }
         public ReadCategoryDTO ParentCategory { get; set; }
-        public ICollection<int> ChildCategories { get; set; }
+        public ICollection<MiniReadCategoryDTO> ChildCategories { get; set; }
     }
-    public class ReadCategoryDTOValidation : AbstractValidator<ReadCategoryDTO>
+    public record MiniReadCategoryDTO : BaseEntityDTO
     {
-        public ReadCategoryDTOValidation()
-        {
-            RuleFor(c => c.Id)
-                .NotEmpty()
-                .WithMessage("It must be filled!");
-        }
+        public string Name { get; set; }
+        public int? ParentCategoryId { get; set; }
     }
 }

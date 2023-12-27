@@ -11,12 +11,7 @@ namespace BlogApp.Business.Services.Intefaces
 {
     public interface ITeacherService
     {
-        Task<ICollection<ReadTeacherDTO>> ReadAsync(
-            Expression<Func<Teacher, bool>>? expression = null,
-            Expression<Func<Teacher, object>>? expressionOrder = null,
-            bool isDescending = false,
-            params string[] includes
-            );
+        Task<ICollection<ReadTeacherDTO>> ReadAsync();
         Task<ReadTeacherDTO> ReadAsync(int Id);
         Task<Teacher> CreateAsync(CreateTeacherDTO entity, string env);
         Task<Teacher> UpdateAsync(UpdateTeacherDTO entity, string env);

@@ -36,7 +36,7 @@ namespace BlogApp.API.Controllers
         {
             try
             {
-                var result = await _service.ReadAsync(Id);
+                var result = await _service.ReadIdAsync(Id);
 
                 return Ok(result);
             }

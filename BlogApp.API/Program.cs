@@ -32,7 +32,7 @@ namespace BlogApp.API
             builder.Services.AddControllers().AddFluentValidation(opt => 
             {
                 opt.RegisterValidatorsFromAssembly(typeof(CreateCategoryDTOValidation).Assembly);
-                opt.RegisterValidatorsFromAssembly(typeof(ReadCategoryDTOValidation).Assembly);
+                //opt.RegisterValidatorsFromAssembly(typeof(ReadCategoryDTOValidation).Assembly);
                 opt.RegisterValidatorsFromAssembly(typeof(UpdateCategoryDTOValidation).Assembly);
             }).AddJsonOptions(x =>
                 x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);

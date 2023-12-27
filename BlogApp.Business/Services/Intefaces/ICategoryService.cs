@@ -11,13 +11,8 @@ namespace BlogApp.Business.Services.Intefaces
 {
     public interface ICategoryService
     {
-        Task<ICollection<ReadCategoryDTO>> ReadAsync(
-            Expression<Func<Category, bool>>? expression = null,
-            Expression<Func<Category, object>>? expressionOrder = null,
-            bool isDescending = false,
-            params string[] includes
-            );
-        Task<ReadCategoryDTO> ReadAsync(int Id);
+        Task<ICollection<ReadCategoryDTO>> ReadAsync();
+        Task<DetailCategoryDTO> ReadIdAsync(int Id);
         Task<Category> CreateAsync(CreateCategoryDTO entity, string env);
         Task<Category> UpdateAsync(UpdateCategoryDTO entity, string env);
         Task<Category> DeleteAsync(int Id);

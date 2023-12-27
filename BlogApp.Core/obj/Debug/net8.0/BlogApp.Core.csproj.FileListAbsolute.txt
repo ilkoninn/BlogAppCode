@@ -23,3 +23,4 @@ C:\Users\II novbe\Desktop\BlogAppCode\BlogApp.Core\obj\Debug\net8.0\BlogApp.Core
 C:\Users\II novbe\Desktop\BlogAppCode\BlogApp.Core\obj\Debug\net8.0\ref\BlogApp.Core.dll
 C:\Users\99470\Desktop\BlogApp\BlogApp.Core\obj\Debug\net8.0\BlogApp.Core.sourcelink.json
 C:\Users\II novbe\Desktop\BlogAppCode\BlogApp.Core\obj\Debug\net8.0\BlogApp.Core.csproj.AssemblyReference.cache
+C:\Users\99470\Desktop\BlogApp\BlogApp.Core\obj\Debug\net8.0\BlogApp.Core.csproj.AssemblyReference.cache
