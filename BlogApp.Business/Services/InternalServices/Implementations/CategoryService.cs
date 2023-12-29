@@ -2,7 +2,7 @@
 using BlogApp.Business.DTOs.CategoryDTOs;
 using BlogApp.Business.Exceptions;
 using BlogApp.Business.Exceptions.Common;
-using BlogApp.Business.Services.Intefaces;
+using BlogApp.Business.Services.InternalServices.Intefaces;
 using BlogApp.Core.Entities;
 using BlogApp.DAL.Repositories.Interfaces;
 using DianaWebApp.Helper;
@@ -16,7 +16,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BlogApp.Business.Services.Implementations
+namespace BlogApp.Business.Services.InternalServices.Implementations
 {
     public class CategoryService : ICategoryService
     {
@@ -33,7 +33,7 @@ namespace BlogApp.Business.Services.Implementations
         {
             if (entity is null) throw new ObjectNullException();
 
-            Category newCategory = new() 
+            Category newCategory = new()
             {
                 Name = entity.Name,
                 ParentCategoryId = entity.ParentCategoryId,
@@ -70,18 +70,18 @@ namespace BlogApp.Business.Services.Implementations
 
         public async Task<Category> UpdateAsync(UpdateCategoryDTO entity, string env)
         {
-            if (entity.Id <= 0 || entity.Id == null || 
+            if (entity.Id <= 0 || entity.Id == null ||
                 entity.ParentCategoryId <= 0) throw new NegativeIdException();
 
             Category oldCategory = await _rep.ReadIdAsync(entity.Id);
 
-            if(oldCategory is null) throw new ObjectNotFoundException();
+            if (oldCategory is null) throw new ObjectNotFoundException();
 
             oldCategory.Name = entity.Name;
             oldCategory.ParentCategoryId = entity.ParentCategoryId;
             oldCategory.UpdatedDate = DateTime.Now;
             oldCategory.CreatedDate = oldCategory.CreatedDate;
-            
+
             var result = await _rep.UpdateAsync(oldCategory);
             await _rep.SaveChangesAsync();
 
@@ -98,7 +98,7 @@ namespace BlogApp.Business.Services.Implementations
 
             foreach (var item in await _rep.ReadAsync())
             {
-                if(item.ParentCategoryId == oldCategory.Id)
+                if (item.ParentCategoryId == oldCategory.Id)
                 {
                     item.ParentCategoryId = null;
                 }

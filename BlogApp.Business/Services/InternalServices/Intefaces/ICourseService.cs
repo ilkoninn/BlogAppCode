@@ -9,7 +9,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BlogApp.Business.Services.Intefaces
+namespace BlogApp.Business.Services.InternalServices.Intefaces
 {
     public interface ICourseService
     {

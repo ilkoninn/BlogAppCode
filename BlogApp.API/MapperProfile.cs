@@ -1,9 +1,11 @@
 ﻿using AutoMapper;
+using BlogApp.Business.DTOs.AccountDTOs;
 using BlogApp.Business.DTOs.CategoryDTOs;
 using BlogApp.Business.DTOs.CourseDTOs;
 using BlogApp.Business.DTOs.StudentDTOs;
 using BlogApp.Business.DTOs.TeacherDTOs;
 using BlogApp.Core.Entities;
+using BlogApp.Core.Entities.Account;
 using System;
 using System.ComponentModel;
 
@@ -13,8 +15,13 @@ namespace BlogApp.API
     {
         public MapperProfile()
         {
+            // Application User Section
+            CreateMap<AppUser, RegisterDTO>().ReverseMap();
+            CreateMap<AppUser, RegisterDTO>();
 
-            
+            CreateMap<AppUser, ReadUserDTO>().ReverseMap();
+            CreateMap<AppUser, ReadUserDTO>();
+
             // Category Section
             CreateMap<Category, CreateCategoryDTO>().ReverseMap();
             CreateMap<Category, CreateCategoryDTO>();

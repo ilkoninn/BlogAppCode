@@ -62,7 +62,7 @@ namespace BlogApp.Business.DTOs.AccountDTOs
                 .WithMessage("Password must be filled!")
                 .Must(r =>
                 {
-                    Regex regex = new Regex(@"^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$");
+                    Regex regex = new Regex(@"^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$");
                     Match match = regex.Match(r);
 
                     return match.Success;

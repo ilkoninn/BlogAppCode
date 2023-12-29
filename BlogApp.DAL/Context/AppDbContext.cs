@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace BlogApp.DAL.Context
 {
-    public class AppDbContext : IdentityDbContext
+    public class AppDbContext : IdentityDbContext<AppUser>
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) 
         {
@@ -24,12 +24,7 @@ namespace BlogApp.DAL.Context
         //    modelBuilder.ApplyConfiguration(new StudentConfiguration());
         //    modelBuilder.ApplyConfiguration(new TeacherConfiguration());
         //    modelBuilder.ApplyConfiguration(new CourseConfiguration());
-
-        //    modelBuilder.Entity<Category>()
-        //        .HasOne(s => s.ParentCategory)
-        //        .WithMany(m => m.ChildCategories)
-        //        .HasForeignKey(c => c.ParentCategoryId);
-
+        //    modelBuilder.ApplyConfiguration(new AppUserConfiguration());
         //}
 
         // Global Models in App

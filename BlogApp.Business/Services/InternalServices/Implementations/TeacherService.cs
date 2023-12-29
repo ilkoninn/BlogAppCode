@@ -2,7 +2,7 @@
 using BlogApp.Business.DTOs.TeacherDTOs;
 using BlogApp.Business.DTOs.TeacherDTOs;
 using BlogApp.Business.Exceptions.Common;
-using BlogApp.Business.Services.Intefaces;
+using BlogApp.Business.Services.InternalServices.Intefaces;
 using BlogApp.Core.Entities;
 using BlogApp.DAL.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
@@ -13,7 +13,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BlogApp.Business.Services.Implementations
+namespace BlogApp.Business.Services.InternalServices.Implementations
 {
     public class TeacherService : ITeacherService
     {

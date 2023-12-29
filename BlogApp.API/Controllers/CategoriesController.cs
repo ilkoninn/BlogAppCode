@@ -1,7 +1,9 @@
 ﻿using BlogApp.Business.DTOs.CategoryDTOs;
 using BlogApp.Business.Exceptions.Common;
-using BlogApp.Business.Services.Intefaces;
+using BlogApp.Business.Services.InternalServices.Intefaces;
 using FluentValidation;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
@@ -12,6 +14,7 @@ namespace BlogApp.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class CategoriesController : ControllerBase
     {
         private readonly ICategoryService _service;
